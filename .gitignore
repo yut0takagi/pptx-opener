@@ -1,0 +1,19 @@
+# ビルド成果物
+*.vsix
+node_modules/
+
+# macOS
+.DS_Store
+
+# 動作確認のために置いた資料を誤ってコミットしない（テスト用のファイルは実行時に生成する）
+*.pptx
+*.ppt
+*.pptm
+*.potx
+*.ppsx
+*.key
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.pdf

@@ -1,0 +1,91 @@
+{
+  "name": "pptx-opener",
+  "displayName": "PPTX Opener",
+  "description": "Open PowerPoint files in their default app (PowerPoint, Keynote, ...) with a single Enter, instead of the \"cannot display binary file\" editor.",
+  "version": "0.1.0",
+  "publisher": "yut0takagi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yut0takagi/pptx-opener.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yut0takagi/pptx-opener/issues"
+  },
+  "homepage": "https://github.com/yut0takagi/pptx-opener#readme",
+  "keywords": [
+    "pptx",
+    "powerpoint",
+    "keynote",
+    "open with default app",
+    "external app"
+  ],
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./extension.js",
+  "files": [
+    "extension.js",
+    "lib/**",
+    "LICENSE"
+  ],
+  "activationEvents": [
+    "onCustomEditor:pptxOpener.launcher",
+    "onCommand:pptxOpener.openExternally"
+  ],
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "pptxOpener.launcher",
+        "displayName": "PPTX Opener",
+        "priority": "default",
+        "selector": [
+          { "filenamePattern": "*.pptx" },
+          { "filenamePattern": "*.ppt" },
+          { "filenamePattern": "*.pptm" },
+          { "filenamePattern": "*.potx" },
+          { "filenamePattern": "*.ppsx" }
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "pptxOpener.openExternally",
+        "title": "既定のアプリで開く",
+        "category": "PPTX Opener"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "pptxOpener.openExternally",
+          "when": "resourceExtname =~ /^\\.(pptx?|pptm|potx|ppsx)$/i",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "pptxOpener.openExternally",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "PPTX Opener",
+      "properties": {
+        "pptxOpener.autoOpen": {
+          "type": "boolean",
+          "default": false,
+          "description": "確認のポップアップを出さず、ファイルを開いた時点で既定のアプリで開く"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "package": "npx --yes @vscode/vsce package -o pptx-opener.vsix"
+  }
+}
